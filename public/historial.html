@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>📅 Historial de Temperatura</title>
+  <script>
+    async function cargarHistorial() {
+      const res = await fetch('/historial');
+      const datos = await res.json();
+
+      const tabla = document.getElementById("tabla");
+      tabla.innerHTML = "<tr><th>📆 Fecha</th><th>⏰ Hora</th><th>🌡️ Temperatura</th></tr>";
+
+      datos.forEach(reg => {
+        const fila = `<tr><td>${reg.fecha}</td><td>${reg.hora}</td><td>${reg.temperatura} °C</td></tr>`;
+        tabla.innerHTML += fila;
+      });
+    }
+
+    window.onload = cargarHistorial;
+  </script>
+  <style>
+    body {
+      background: #0f172a;
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+    table {
+      margin: auto;
+      border-collapse: collapse;
+      width: 80%;
+    }
+    th, td {
+      padding: 0.5rem;
+      border-bottom: 1px solid #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>📅 Historial de Temperatura</h1>
+  <table id="tabla"></table>
+</body>
+</html>
